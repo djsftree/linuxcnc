@@ -322,6 +322,7 @@ HEADERS := \
     emc/kinematics/switchkins.h \
     emc/kinematics/genhexkins.h \
     emc/kinematics/genserkins.h \
+    emc/kinematics/dhkins.h \
     emc/kinematics/pentakins.h \
     emc/kinematics/pumakins.h \
     emc/tp/tc.h \
@@ -1105,6 +1106,12 @@ genserkins-objs += emc/kinematics/kins_util.o
 genserkins-objs += emc/kinematics/switchkins.o
 genserkins-objs += $(USERKFUNCS)
 
+obj-m += dhkins.o
+dhkins-objs := emc/kinematics/dhkins.o
+dhkins-objs += libnml/posemath/gomath.o
+dhkins-objs += libnml/posemath/sincos.o $(MATHSTUB)
+dhkins-objs += $(USERKFUNCS)
+
 obj-m += xyzac-trt-kins.o
 xyzac-trt-kins-objs := emc/kinematics/xyzac-trt-kins.o
 xyzac-trt-kins-objs += emc/kinematics/trtfuncs.o
@@ -1284,6 +1291,7 @@ endif
 ../rtlib/hm2_rpspi$(MODULE_EXT): $(addprefix objects/rt,$(hm2_rpspi-objs))
 ../rtlib/hal_bb_gpio$(MODULE_EXT): $(addprefix objects/rt,$(hal_bb_gpio-objs))
 ../rtlib/hal_pi_gpio$(MODULE_EXT): $(addprefix objects/rt,$(hal_pi_gpio-objs))
+../rtlib/dhkins$(MODULE_EXT): $(addprefix objects/rt,$(dhkins-objs))
 
 #----------------------------------------------------------------
 # SWITCHKINS
